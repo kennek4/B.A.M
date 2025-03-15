@@ -1,2 +1,2 @@
 # B.A.M
-Bash Aliases Manager
+Bash Alias Manager
