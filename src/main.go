@@ -32,12 +32,14 @@ var currAliases []AliasAndCmd
 func getBashAliases() error {
 	var curr AliasAndCmd
 
+	// Getting the dir for .bash_aliases
 	dir, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatalf("Failed to get UserHomeDir")
 		return nil
 	}
 
+	// Opening file
 	dir = filepath.Join(dir, ".bash_aliases")
 	file, err := os.Open(dir)
 	if err != nil {
@@ -58,6 +60,8 @@ func getBashAliases() error {
 		}
 	}
 
+	// If any errors occured during the reading of the file
+	// log an error and return
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("Failed to read .bash_aliases: %s", err)
 		return err
@@ -133,10 +137,6 @@ func main() {
 	err := getBashAliases()
 	if err != nil {
 		log.Fatalf("%s", err)
-	}
-
-	for _, item := range currAliases {
-		fmt.Printf("%s\n%s\n\n", item.alias, item.cmd)
 	}
 
 	p := tea.NewProgram(initialModel())
